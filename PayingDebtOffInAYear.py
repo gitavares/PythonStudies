@@ -60,15 +60,13 @@ def MinimumFixedMonthlyPaymentBisection(balance, annualInterestRate):
         for x in range(0, 12):
             monthlyUnpaidBalance = remainingBalance - smallestMonthlyPayment
             remainingBalance = round(monthlyUnpaidBalance + (monthlyInterestRate * monthlyUnpaidBalance),3)
-        print('remainingBalance=', remainingBalance, 'smallestMonthlyPayment=', smallestMonthlyPayment)
+        #print('remainingBalance=', remainingBalance, 'smallestMonthlyPayment=', smallestMonthlyPayment)
         
-        if(remainingBalance < 0):
-            #alguma coisa aqui que gere um novo range
-        
-        if((f(smallestMonthlyPayment) * f(monthlyPaymentUpperBound)) < 0):
+        if(remainingBalance <= 0):
             monthlyPaymentUpperBound = round(smallestMonthlyPayment,2)
         else:
             monthlyPaymentLowerBound = round(smallestMonthlyPayment,2)
+
         smallestMonthlyPayment = round((monthlyPaymentLowerBound + monthlyPaymentUpperBound)/2.0, 2)
         remainingBalance = balance
     return round(smallestMonthlyPayment, 2)    
