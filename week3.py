@@ -31,3 +31,39 @@ print(oddTuples(('I', 'am', 'a', 'test', 'tuple')))
 #3 in x
 #x[0] = 8
         
+
+
+#def absToEach(testList):
+#    return abs(testList)
+
+def applyToEach(L, f):
+    for i in range(len(L)):
+        L[i] = f(L[i])
+    return L
+
+testList = [1, -4, 8, -9]
+
+#def plusOneToEach(testList): 
+#    return testList + 1
+#print(plusOneToEach(testList))
+
+
+def expTwoToEach(testList): 
+    return abs(testList ** 2)
+
+#print(applyToEach(testList, absToEach))
+print(applyToEach(testList, expTwoToEach))
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
