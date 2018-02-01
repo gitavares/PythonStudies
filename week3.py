@@ -57,13 +57,58 @@ print(applyToEach(testList, expTwoToEach))
 
 
 
-        
+def applyEachTo(L, x):
+    result = []
+    for i in range(len(L)):
+        result.append(L[i](x))
+    return result   
+
+def square(a):
+    return a*a
+
+def halve(a):
+    return a/2
+
+def inc(a):
+    return a+1
+
+#print(applyEachTo([inc, square, halve, abs], -3))
+#print(applyEachTo([inc, square, halve, abs], 3.0))
+print(applyEachTo([inc, max, int], -3))
+#[-2, error, -3]
+
+# exercise how many
+animals = {'a': ['aardvark'],
+ 'b': ['baboon'],
+ 'c': ['coati'],
+ 'd': ['donkey', 'dog', 'dingo']}
+def how_many(aDict):
+    sumAnimals = 0
+    for animals in aDict.keys():
+        for animals in aDict[animals]:    
+            sumAnimals += 1
+    
+    return sumAnimals
+print(how_many(animals))
 
 
-
-
-
-
-
-
-
+# exercise biggest
+animals = {'a': ['aardvark'],
+ 'b': ['baboon'],
+ 'c': ['coati'],
+ 'd': ['donkey', 'dog', 'dingo']}
+def biggest(aDict):
+    biggestKey = ''
+    aux = 0
+    aux2 = 0
+    for a in aDict.keys():
+        for animal in aDict[a]:    
+            aux += 1
+        if aux > aux2:
+            biggestKey = a
+            aux2 = aux
+            aux = 0    
+    return biggestKey
+print(biggest(animals))
+    
+   
