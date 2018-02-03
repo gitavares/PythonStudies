@@ -44,7 +44,7 @@ def chooseWord(wordlist):
 # so that it can be accessed from anywhere in the program
 wordlist = loadWords()
 
-# problem 1
+
 def isWordGuessed(secretWord, lettersGuessed):
     '''
     secretWord: string, the word the user is guessing
@@ -52,7 +52,6 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    # FILL IN YOUR CODE HERE...
     counter = 0
     while(counter < len(secretWord)):
         if(secretWord[counter] not in lettersGuessed):
@@ -60,7 +59,6 @@ def isWordGuessed(secretWord, lettersGuessed):
         counter += 1
     return True
 
-#print(isWordGuessed('banana', ['z', 'x', 'q', 'a', 'n', 'a', 'n', 'a']))
 
 def getGuessedWord(secretWord, lettersGuessed):
     '''
@@ -69,7 +67,6 @@ def getGuessedWord(secretWord, lettersGuessed):
     returns: string, comprised of letters and underscores that represents
       what letters in secretWord have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE...
     tempSecretWord = ''
 
     counter = 0
@@ -79,9 +76,7 @@ def getGuessedWord(secretWord, lettersGuessed):
         else:
             tempSecretWord += ''.join('_ ')
         counter += 1
-    
     return tempSecretWord
-#print(getGuessedWord('apple', ['e', 'i', 'k', 'p', 'r', 's']))
 
 
 def getAvailableLetters(lettersGuessed):
@@ -90,7 +85,6 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE...
     availableLetters = ''
     counter = 0
     
@@ -98,9 +92,7 @@ def getAvailableLetters(lettersGuessed):
         if string.ascii_lowercase[counter] not in lettersGuessed:
             availableLetters += ''.join(string.ascii_lowercase[counter])
         counter += 1
-    
     return availableLetters
-#print(getAvailableLetters(['e', 'i', 'k', 'p', 'r', 's']))
 
 def hangman(secretWord):
     '''
@@ -123,13 +115,11 @@ def hangman(secretWord):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE...
-    arraySecretWord = secretWord
     numLetters = len(secretWord)
     lettersGuessed = []
     NUM_CHANCES = 8
     mistakesMade = 0
-    availableLetters = getAvailableLetters(lettersGuessed)
-    
+    letterTyped = ''
     
     print("Welcome to the game, Hangman!")
     print("I am thinking of a word that is", numLetters, "letters long.")
@@ -140,23 +130,27 @@ def hangman(secretWord):
         print('Available letters: ' + getAvailableLetters(lettersGuessed))
         
         previousGuessedWord = getGuessedWord(secretWord, lettersGuessed)
-        lettersGuessed = lettersGuessed.insert(input('Please guess a letter: '))
-        
-        if isWordGuessed(secretWord, lettersGuessed):
-            print('Good guess: ' + secretWord)
-            print('Congratulations, you won!')
-            break;
-        elif previousGuessedWord != getGuessedWord(secretWord, lettersGuessed):#se lettersGuessed for um bom palpite e não completar a palavra toda ainda
-            print('Good guess: ' + getGuessedWord(secretWord, lettersGuessed))
-        elif lettersGuessed in previousGuessedWord:#se a lettersGuessed já existia:
+        previousAvailableLetters = getAvailableLetters(lettersGuessed)
+        letterTyped = input('Please guess a letter: ')
+                
+        if letterTyped[0] in previousGuessedWord or letterTyped[0] not in previousAvailableLetters:
             print("Oops! You've already guessed that letter: " + getGuessedWord(secretWord, lettersGuessed))
         else:
-            print("Oops! That letter is not in my word: " + getGuessedWord(secretWord, lettersGuessed))
-            mistakesMade += 1
+            lettersGuessed.append(letterTyped)
+            if isWordGuessed(secretWord, lettersGuessed):
+                print('Good guess: ' + secretWord)
+                print('------------') 
+                print('Congratulations, you won!')
+                break
+            elif previousGuessedWord != getGuessedWord(secretWord, lettersGuessed):
+                print('Good guess: ' + getGuessedWord(secretWord, lettersGuessed))
+            else:
+                print("Oops! That letter is not in my word: " + getGuessedWord(secretWord, lettersGuessed))
+                mistakesMade += 1
         print('------------')            
 
     if NUM_CHANCES == mistakesMade:
-        print('Sorry, you ran out of guesses. The word was else.')
+        print('Sorry, you ran out of guesses. The word was ' + secretWord + '.')
     
 
 
@@ -164,113 +158,7 @@ def hangman(secretWord):
 # and run this file to test! (hint: you might want to pick your own
 # secretWord while you're testing)
 
-#secretWord = chooseWord(wordlist).lower()
-secretWord = "perivaldo"
+
+#secretWord = "amazonas"
+secretWord = chooseWord(wordlist).lower()
 hangman(secretWord)
-
-
-
-#The output of a winning game should look like this...
-#
-#
-#	Loading word list from file...
-#	55900 words loaded.
-#	Welcome to the game, Hangman!
-#	I am thinking of a word that is 4 letters long.
-#	-------------
-#	You have 8 guesses left.
-#	Available letters: abcdefghijklmnopqrstuvwxyz
-#	Please guess a letter: a
-#	Good guess: _ a_ _
-#	------------
-#	You have 8 guesses left.
-#	Available letters: bcdefghijklmnopqrstuvwxyz
-#	Please guess a letter: a
-#	Oops! You've already guessed that letter: _ a_ _
-#	------------
-#	You have 8 guesses left.
-#	Available letters: bcdefghijklmnopqrstuvwxyz
-#	Please guess a letter: s
-#	Oops! That letter is not in my word: _ a_ _
-#	------------
-#	You have 7 guesses left.
-#	Available letters: bcdefghijklmnopqrtuvwxyz
-#	Please guess a letter: t
-#	Good guess: ta_ t
-#	------------
-#	You have 7 guesses left.
-#	Available letters: bcdefghijklmnopqruvwxyz
-#	Please guess a letter: r
-#	Oops! That letter is not in my word: ta_ t
-#	------------
-#	You have 6 guesses left.
-#	Available letters: bcdefghijklmnopquvwxyz
-#	Please guess a letter: m
-#	Oops! That letter is not in my word: ta_ t
-#	------------
-#	You have 5 guesses left.
-#	Available letters: bcdefghijklnopquvwxyz
-#	Please guess a letter: c
-#	Good guess: tact
-#	------------
-#	Congratulations, you won!
-#
-#    
-#
-#And the output of a losing game should look like this...
-#
-#
-#	Loading word list from file...
-#	55900 words loaded.
-#	Welcome to the game Hangman!
-#	I am thinking of a word that is 4 letters long
-#	-----------
-#	You have 8 guesses left
-#	Available Letters: abcdefghijklmnopqrstuvwxyz
-#	Please guess a letter: a
-#	Oops! That letter is not in my word: _ _ _ _
-#	-----------
-#	You have 7 guesses left
-#	Available Letters: bcdefghijklmnopqrstuvwxyz
-#	Please guess a letter: b
-#	Oops! That letter is not in my word: _ _ _ _
-#	-----------
-#	You have 6 guesses left
-#	Available Letters: cdefghijklmnopqrstuvwxyz
-#	Please guess a letter: c
-#	Oops! That letter is not in my word: _ _ _ _
-#	-----------
-#	You have 5 guesses left
-#	Available Letters: defghijklmnopqrstuvwxyz
-#	Please guess a letter: d
-#	Oops! That letter is not in my word: _ _ _ _
-#	-----------
-#	You have 4 guesses left
-#	Available Letters: efghijklmnopqrstuvwxyz
-#	Please guess a letter: e
-#	Good guess: e_ _ e
-#	-----------
-#	You have 4 guesses left
-#	Available Letters: fghijklmnopqrstuvwxyz
-#	Please guess a letter: f
-#	Oops! That letter is not in my word: e_ _ e
-#	-----------
-#	You have 3 guesses left
-#	Available Letters: ghijklmnopqrstuvwxyz
-#	Please guess a letter: g
-#	Oops! That letter is not in my word: e_ _ e
-#	-----------
-#	You have 2 guesses left
-#	Available Letters: hijklmnopqrstuvwxyz
-#	Please guess a letter: h
-#	Oops! That letter is not in my word: e_ _ e
-#	-----------
-#	You have 1 guesses left
-#	Available Letters: ijklmnopqrstuvwxyz
-#	Please guess a letter: i
-#	Oops! That letter is not in my word: e_ _ e
-#	-----------
-#	Sorry, you ran out of guesses. The word was else. 
-#    
-#
-
