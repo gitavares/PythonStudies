@@ -122,7 +122,7 @@ def iterPower(base, exp):
         exp -= 1
     return answer
 
-print(iterPower(2, 4))
+print(iterPower(3, 12))
 
 
 def gcdIter(a, b):
@@ -139,7 +139,7 @@ def gcdIter(a, b):
         smaller -= 1
     return answer
 
-print(gcdIter(17,12))
+print(gcdIter(4,12))
 
 
 def gcdRecur(a, b):
@@ -148,7 +148,7 @@ def gcdRecur(a, b):
     else:
         return gcdRecur(b, a % b)
 
-print(gcdRecur(17,12))
+print(gcdRecur(3,12))
     
 
 def fib(x):

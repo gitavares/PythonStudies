@@ -11,5 +11,5 @@ def polysum(n, s):
     square = (s*n)**2
     return round(area + square,4)
 
-print(polysum(31,15))
+print(polysum(3,12))
 
