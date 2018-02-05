@@ -23,6 +23,12 @@ def uniqueValues(aDict):
         #for v in aDict:
         print('v: ', v, 'aDict.get(k): ', aDict.get(k))
         print('v == aDict.get(k): ', v == aDict.get(k))
+        
+#        if aDict.count(v) == 1:
+#            listOfKeys[k] = v
+        
+
+        
         if v == aDict.get(k):
             numValues += 1
             print('numValues: ', numValues)
@@ -30,14 +36,14 @@ def uniqueValues(aDict):
         if numValues > 1:
             numValues = 0
             break
-        
-        listOfKeys[k] = v
+        else:
+            listOfKeys[k] = v
 #            if numValues == 1:
-        #numValues = 0
+    #numValues = 0
             #counter += 1
 
             
     
     return sorted(listOfKeys)
 
-print(uniqueValues({1: 1, 2: 1, 3: 1}))
+print(uniqueValues({1: 1, 2: 2, 3: 3}))
