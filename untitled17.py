@@ -16,11 +16,11 @@ def laceStringsRecur(s1, s2):
     """
     def helpLaceStrings(s1, s2, out):
         if s1 == '':
-            return s1.join(s2)
+            return helpLaceStrings(s2, s2, '')
         if s2 == '':
-            return s2.join(s1)
+            return helpLaceStrings(s1, s1, '')
         else:
-            return ''.join(s1).join(s2)
+            return helpLaceStrings(s1, s2, '')
     return helpLaceStrings(s1, s2, '')
 
 print(laceStringsRecur('giselle', 'peri'))
